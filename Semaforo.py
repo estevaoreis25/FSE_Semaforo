@@ -8,7 +8,6 @@ class Semaforo:
     self.vermelho = LED(vermelho)
     self.verde = LED(verde)
     self.amarelho = LED(amarelo)
-    self.estado = 0
     self.is_verde = False
     self.is_vermelho = True
     self.is_amarelo = False
