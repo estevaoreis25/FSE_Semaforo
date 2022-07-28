@@ -1,21 +1,29 @@
+from time import sleep
 from Cruzamento import Cruzamento
 if __name__ == "__main__":
 
-  cruzamento1 = Cruzamento(verm1="BOARD21", 
-                    amar1="BOARD26", 
-                    verd1="BOARD01",
-                    verm2="BOARD12", 
-                    amar2="BOARD16", 
-                    verd2="BOARD20")
+  cruzamento1 = Cruzamento(
+                    verm1=12, 
+                    amar1=16, 
+                    verd1=20, 
+                    verm2=21, 
+                    amar2=26, 
+                    verd2=1,
+                    botao1=8,
+                    botao2=7)
 
-  cruzamento2 = Cruzamento(verm1="BOARD11", 
-                  amar1="BOARD03", 
-                  verd1="BOARD02",
-                  verm2="BOARD06", 
-                  amar2="BOARD05", 
-                  verd2="BOARD00")
+  cruzamento2 = Cruzamento(
+                  verm1=6, 
+                  amar1=5, 
+                  verd1=0,
+                  verm2=11, 
+                  amar2=3, 
+                  verd2=2,
+                  botao1=10,
+                  botao2=9)
 
   while(True):
     cruzamento1.controla_semaforos()
     #cruzamento2.controla_semaforos()
+    sleep(1)
   

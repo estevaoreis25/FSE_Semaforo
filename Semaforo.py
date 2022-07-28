@@ -12,6 +12,7 @@ class Semaforo:
     self.is_vermelho = True
     self.is_amarelo = False
 
+
   def pare(self):
     self.vermelho.on()
     self.amarelho.off()
@@ -36,3 +37,13 @@ class Semaforo:
     self.is_verde = True
     self.is_vermelho = False
     self.is_amarelo = False
+
+  def ativa_modo_noturno(self):
+    self.vermelho.off()
+    self.amarelho.on()
+    self.verde.off()
+    sleep(1)
+    self.amarelho.off()
+    
+
+
