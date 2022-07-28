@@ -44,6 +44,14 @@ class Semaforo:
     self.verde.off()
     sleep(1)
     self.amarelho.off()
+
+  def desliga_semaforo(self):
+    self.vermelho.off()
+    self.amarelho.off()
+    self.verde.off()
+    self.is_verde = False
+    self.is_vermelho = False
+    self.is_amarelo = False
     
 
 
