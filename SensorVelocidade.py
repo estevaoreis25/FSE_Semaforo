@@ -25,3 +25,5 @@ class SensorVelocidade:
     self.velocidades.append(self.velocidade_media)
     self.velocidade_via = sum(self.velocidades)/len(self.velocidades)
     print(f'Velocidade media: {self.velocidade_media}km')
+    print(f'Velocidade media da via: {self.velocidade_via}km')
+    
