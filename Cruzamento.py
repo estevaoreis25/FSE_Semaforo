@@ -11,6 +11,7 @@ class Cruzamento:
     self.botao_pedestre2 = Button(botao2)
     self.is_botao_pedestre = False
     self.botao_pedestre1.when_pressed = self.modo_pedestre
+    self.botao_pedestre2.when_pressed = self.modo_pedestre
 
   def controla_semaforos(self):
     if(self.estado == 0):

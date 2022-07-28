@@ -8,10 +8,12 @@ class Semaforo:
     self.vermelho = LED(vermelho)
     self.verde = LED(verde)
     self.amarelho = LED(amarelo)
+    self.vermelho.off()
+    self.amarelho.off()
+    self.verde.off()
     self.is_verde = False
-    self.is_vermelho = True
+    self.is_vermelho = False
     self.is_amarelo = False
-
 
   def pare(self):
     self.vermelho.on()
