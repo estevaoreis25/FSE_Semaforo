@@ -23,7 +23,6 @@ class SensorVelocidade:
     # delta s/ deslta t
     self.velocidade_media = round((1.0/(self.tf - self.ti)) * 3.6, 2)
     self.velocidades.append(self.velocidade_media)
-    self.velocidade_via = sum(self.velocidades)/len(self.velocidades)
+    self.velocidade_via = round(sum(self.velocidades)/len(self.velocidades), 2)
     print(f'Velocidade media: {self.velocidade_media}km')
     print(f'Velocidade media da via: {self.velocidade_via}km')
-    
