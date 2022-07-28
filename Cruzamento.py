@@ -27,8 +27,9 @@ class Cruzamento:
         self.smf_auxiliar.pare()
         self.estado = 1
     elif(self.estado == 1):
-        if(self.tempo_estado >= 10 and (self.is_botao_pedestre == True or self.is_carro_esperando == True)):
-          self.is_botao_pedestre == False
+        self.is_botao_pedestre = False
+        if(self.tempo_estado >= 10 and self.is_carro_esperando == True):
+          self.is_carro_esperando = False
           self.estado = 2
           self.tempo_estado = 0
         elif(self.tempo_estado >= 20):
@@ -47,15 +48,18 @@ class Cruzamento:
         self.smf_auxiliar.pare()
         self.estado = 4
     elif(self.estado == 4):
-        if(self.tempo_estado >= 10):
+        self.is_carro_esperando = False
+        if(self.tempo_estado >= 5 and self.is_botao_pedestre == True):
+          self.is_botao_pedestre = False
+          self.estado = 5
+          self.tempo_estado = 0
+        elif(self.tempo_estado >= 10):
           self.estado = 5
           self.tempo_estado = 0
         else:
           self.smf_principal.pare()
           self.smf_auxiliar.passe()
           self.tempo_estado +=1
-        self.is_botao_pedestre = False
-        self.is_carro_esperando = False
     elif(self.estado == 5):
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
@@ -67,6 +71,7 @@ class Cruzamento:
     print(f'Pedestre quer passar? {self.is_botao_pedestre}')
     print(f'Tem carro esperando? {self.is_carro_esperando}')
     print(f'TEMPO(s): {self.tempo_estado}')
+    print(f'ESTADO: {self.estado}')
 
 
   def ativa_noturno(self):
@@ -79,7 +84,7 @@ class Cruzamento:
     self.estado = 0
   
   def modo_pedestre(self):
-    if(self.estado != 4):
+    if(self.estado != 1):
       self.is_botao_pedestre = True
     else:
       self.is_botao_pedestre = False
