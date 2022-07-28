@@ -13,7 +13,9 @@ if __name__ == "__main__":
                     amar2=26, 
                     verd2=1,
                     botao1=8,
-                    botao2=7)
+                    botao2=7,
+                    sensor_pass1 = 14, 
+                    sensor_pass2 = 15)
 
   cruzamento2 = Cruzamento(
                   verm1=6, 
@@ -23,7 +25,9 @@ if __name__ == "__main__":
                   amar2=3, 
                   verd2=2,
                   botao1=10,
-                  botao2=9)
+                  botao2=9,
+                  sensor_pass1 = 4, 
+                  sensor_pass2 = 17)
   
   def finaliza_programa(sig, frama):
     print("Até mais ...")
@@ -40,4 +44,3 @@ if __name__ == "__main__":
     #cruzamento1.controla_semaforos()
     cruzamento2.controla_semaforos()
     sleep(1)
-  
