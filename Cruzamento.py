@@ -1,9 +1,15 @@
-from Semaforo import Semaforo 
+from Semaforo import Semaforo
+from SensorVelocidade import SensorVelocidade 
 from gpiozero import Button
 from time import sleep
 
 class Cruzamento:
-  def __init__(self, verm1, amar1, verd1, verm2, amar2, verd2, botao1, botao2, sensor_pass1, sensor_pass2):
+  def __init__(self, verm1, amar1, verd1, 
+                    verm2, amar2, verd2, 
+                    botao1, botao2, 
+                    sensor_pass1, sensor_pass2, 
+                    sensor_v1_a, sensor_v1_b,
+                    sensor_v2_a, sensor_v2_b):
     self.tempo_estado = 0
     self.estado = 0
     self.smf_principal = Semaforo(n_semaforo=1, vermelho=verm1, amarelo=amar1, verde=verd1)
@@ -20,6 +26,9 @@ class Cruzamento:
     self.is_carro_esperando = False
     self.sensor_pass1.when_pressed = self.libera_via_aux
     self.sensor_pass2.when_pressed = self.libera_via_aux
+
+    self.sensor_v1 = SensorVelocidade(sensor_v1_a, sensor_v1_b)
+    self.sensor_v2 = SensorVelocidade(sensor_v2_a, sensor_v2_b)
 
   def controla_semaforos(self):
     if(self.estado == 0):
