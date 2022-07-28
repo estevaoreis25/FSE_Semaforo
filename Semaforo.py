@@ -29,7 +29,6 @@ class Semaforo:
     self.is_vermelho = False
     self.is_amarelo = True
     
-
   def passe(self):
     self.vermelho.off()
     self.amarelho.off()
@@ -49,9 +48,4 @@ class Semaforo:
     self.vermelho.off()
     self.amarelho.off()
     self.verde.off()
-    self.is_verde = False
-    self.is_vermelho = False
-    self.is_amarelo = False
     
-
-

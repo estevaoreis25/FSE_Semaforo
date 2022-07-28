@@ -1,6 +1,7 @@
 from time import sleep
 from Cruzamento import Cruzamento
 import signal
+import sys
 
 if __name__ == "__main__":
 
@@ -24,17 +25,19 @@ if __name__ == "__main__":
                   botao1=10,
                   botao2=9)
   
-  def finaliza_programa(self):
+  def finaliza_programa(sig, frama):
+    print("Até mais ...")
     cruzamento1.smf_principal.desliga_semaforo()
     cruzamento1.smf_auxiliar.desliga_semaforo()
-    quit()
+    sleep(2)
+    sys.exit(0)
 
 
   signal.signal(signal.SIGINT, finaliza_programa)
   signal.signal(signal.SIGTERM, finaliza_programa)
 
   while(True):
-    cruzamento1.controla_semaforos()
-    #cruzamento2.controla_semaforos()
+    #cruzamento1.controla_semaforos()
+    cruzamento2.controla_semaforos()
     sleep(1)
   

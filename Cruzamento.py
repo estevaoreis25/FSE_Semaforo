@@ -1,5 +1,4 @@
 from Semaforo import Semaforo 
-from time import sleep 
 from gpiozero import Button
 
 class Cruzamento:
@@ -14,53 +13,49 @@ class Cruzamento:
     self.botao_pedestre1.when_pressed = self.modo_pedestre
 
   def controla_semaforos(self):
-    match self.estado:
-      case 0:
+    if(self.estado == 0):
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 1
-      case 1:
-        if(self.tempo_estado > 10 and self.is_botao_pedestre == True):
+    elif(self.estado == 1):
+        if(self.tempo_estado >= 10 and self.is_botao_pedestre == True):
           self.is_botao_pedestre == False
           self.estado = 2
           self.tempo_estado = 0
-        elif(self.tempo_estado > 20):
+        elif(self.tempo_estado >= 20):
           self.estado = 2
           self.tempo_estado = 0
         else:
           self.smf_principal.passe()
           self.smf_auxiliar.pare()
           self.tempo_estado +=1
-      case 2:
+    elif(self.estado == 2):
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
         self.estado = 3
-      case 3:
+    elif(self.estado == 3):
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 4
-      case 4:
-        if(self.tempo_estado > 10):
+    elif(self.estado == 4):
+        if(self.tempo_estado >= 10):
           self.estado = 5
           self.tempo_estado = 0
         else:
           self.smf_principal.pare()
           self.smf_auxiliar.passe()
           self.tempo_estado +=1
-      case 5:
+        self.is_botao_pedestre = False
+    elif(self.estado == 5):
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
         self.estado = 0
-      case 6:
+    elif(self.estado == 6):
         self.smf_principal.ativa_modo_noturno()
         self.smf_auxiliar.ativa_modo_noturno()
-
-    if(self.estado < 6):
-      self.estado+=1
-    elif(self.estado == 6):
-      self.estado = 0
-    elif(self.estado == 7):
-      self.estado = 0
+    
+    print(f'Pedestre quer passar? {self.is_botao_pedestre}')
+    print(f'TEMPO(s): {self.tempo_estado}')
 
 
   def ativa_noturno(self):
@@ -73,4 +68,7 @@ class Cruzamento:
     self.estado = 0
   
   def modo_pedestre(self):
-    self.is_botao_pedestre = True
+    if(self.estado != 4):
+      self.is_botao_pedestre = True
+    else:
+      self.is_botao_pedestre = False
