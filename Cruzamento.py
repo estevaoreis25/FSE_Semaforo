@@ -35,12 +35,15 @@ class Cruzamento:
     self.sensor_v1 = SensorVelocidade(sensor_v1_a, sensor_v1_b)
     self.sensor_v2 = SensorVelocidade(sensor_v2_a, sensor_v2_b)
 
+    self.ultrapassagens = 0
+
   def controla_semaforos(self):
     if(self.estado == 0):
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 1
     elif(self.estado == 1):
+      # Via auxiliar fechada e via princial aberta
         self.is_botao_pedestre = False
         if(self.tempo_estado >= 10 and self.is_carro_esperando == True):
           self.is_carro_esperando = False
@@ -57,11 +60,14 @@ class Cruzamento:
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
         self.estado = 3
+        self.sensor_v1.reinicia_contagem_carros()
+        self.sensor_v2.reinicia_contagem_carros()
     elif(self.estado == 3):
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 4
     elif(self.estado == 4):
+        # Via auxiliar aberta e via princial fechada
         self.is_carro_esperando = False
         if(self.tempo_estado >= 5 and self.is_botao_pedestre == True):
           self.is_botao_pedestre = False
@@ -78,6 +84,7 @@ class Cruzamento:
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
         self.estado = 0
+        self.ultrapassagens += self.sensor_v1.get_quantidade_carros() + self.sensor_v2.get_quantidade_carros()
     elif(self.estado == 6):
         self.smf_principal.ativa_modo_noturno()
         self.smf_auxiliar.ativa_modo_noturno()
