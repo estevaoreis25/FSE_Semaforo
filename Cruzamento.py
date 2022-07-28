@@ -27,7 +27,12 @@ class Cruzamento:
     self.sensor_pass1.when_pressed = self.libera_via_aux
     self.sensor_pass2.when_pressed = self.libera_via_aux
 
-    self.sensor_v1 = SensorVelocidade(sensor_v1_a, sensor_v1_b)
+    self.sensor_v1_a = Button(sensor_v1_a)
+    self.sensor_v1_b = Button(sensor_v1_b)
+    self.sensor_v1_a.when_pressed = self.printaA
+    self.sensor_v1_b.when_pressed = self.printaB
+
+    #self.sensor_v1 = SensorVelocidade(sensor_v1_a, sensor_v1_b)
     self.sensor_v2 = SensorVelocidade(sensor_v2_a, sensor_v2_b)
 
   def controla_semaforos(self):
@@ -103,5 +108,10 @@ class Cruzamento:
       self.is_carro_esperando = True
     else:
       self.is_carro_esperando = False
+
+  def printaA(self):
+    print("CLICOU NO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
   
+  def printaB(self):
+    print("CLICOU NO BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
   
