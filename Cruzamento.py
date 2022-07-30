@@ -2,8 +2,8 @@ from Semaforo import Semaforo
 from SensorVelocidade import SensorVelocidade 
 from SensorEsperaAuxiliar import SensorEsperaAuxiliar
 from BotaoPedrestre import BotaoPedesrtre
-from gpiozero import Button
 from time import sleep
+import os
 
 class Cruzamento:
   def __init__(self, verm1, amar1, verd1, 
@@ -64,6 +64,7 @@ class Cruzamento:
         self.verifica_carro_esperando_principal()
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
+        os.system('omxplayer example.mp3')
         self.estado = 3
     elif(self.estado == 3):
         # As duas vias fechadas
@@ -72,6 +73,7 @@ class Cruzamento:
         self.verifica_carro_esperando_principal()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
+        os.system('omxplayer example.mp3')
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada
