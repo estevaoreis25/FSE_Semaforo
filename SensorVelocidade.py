@@ -18,6 +18,9 @@ class SensorVelocidade:
 
   def registra_ti(self):
     self.ti = time.time()
+
+  """ def verifica_situacao(self):
+    if(select.sensen) """
   
 
   def calcula_velocidade(self):

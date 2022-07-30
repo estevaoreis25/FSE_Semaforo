@@ -37,6 +37,7 @@ class Cruzamento:
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 1
+        self.ultrapassagens += self.sensor_v1.get_quantidade_carros() + self.sensor_v2.get_quantidade_carros()
     elif(self.estado == 1):
       # Via auxiliar fechada e via princial aberta
         self.is_botao_pedestre = False
@@ -79,7 +80,7 @@ class Cruzamento:
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
         self.estado = 0
-        self.ultrapassagens += self.sensor_v1.get_quantidade_carros() + self.sensor_v2.get_quantidade_carros()
+        
     elif(self.estado == 6):
         self.smf_principal.ativa_modo_noturno()
         self.smf_auxiliar.ativa_modo_noturno()
