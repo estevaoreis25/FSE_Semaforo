@@ -52,9 +52,4 @@ if __name__ == "__main__":
   while(True):
     cruzamento1.controla_semaforos()
     #cruzamento2.controla_semaforos()
-    sleep(1)
-    contador_segundos+=1
-    print(f'Qtd carros →: {round((cruzamento1.sensor_v1.get_quantidade_carros()/contador_segundos)*60, 0)}')
-    print(f'Qtd carros ←: {round((cruzamento1.sensor_v2.get_quantidade_carros()/contador_segundos)*60, 0)}')
-    print(f'Qtd carros ↑: {round((cruzamento1.sensor_v1.get_quantidade_carros()/contador_segundos)*60, 0)}')
-    print(f'Qtd carros ↓: {round((cruzamento1.sensor_v1.get_quantidade_carros()/contador_segundos)*60, 0)}')
+    

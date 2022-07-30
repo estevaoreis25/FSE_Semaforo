@@ -1,5 +1,6 @@
 from gpiozero import Button
 import time
+from threading import Thread
 
 from soupsieve import select
 class SensorVelocidade:
@@ -14,7 +15,8 @@ class SensorVelocidade:
       self.velocidade_via = 0
       self.ti = 0
       self.tf = 0  
-      print("Sensor de velocidade criado")   
+      self.carro_parado = False
+      self.verifica_carro_parado = Thread(target=self.is_carro_parado)  
 
   def registra_ti(self):
     self.ti = time.time()
@@ -26,6 +28,7 @@ class SensorVelocidade:
   def calcula_velocidade(self):
     self.quantidade_carros+=1
     self.tf = time.time()
+    self.verifica_carro_parado.start()
     # delta s/ deslta t
     self.velocidade_media = round((1.0/(self.tf - self.ti)) * 3.6, 2)
     self.velocidades.append(self.velocidade_media)
@@ -38,3 +41,13 @@ class SensorVelocidade:
 
   def reinicia_contagem_carros(self):
     self.quantidade_carros = 0
+
+  def is_carro_parado(self):
+    time.sleep(2)
+    if self.sensor_v_a.is_pressed:
+      self.carro_parado = True
+    else:
+      self.carro_parado = False
+
+  def get_carro_parado(self):
+    return self.carro_parado
