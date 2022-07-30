@@ -50,8 +50,8 @@ if __name__ == "__main__":
   contador_segundos = 0
 
   while(True):
-    #cruzamento1.controla_semaforos()
-    cruzamento2.controla_semaforos()
+    cruzamento1.controla_semaforos()
+    #cruzamento2.controla_semaforos()
     sleep(1)
     contador_segundos+=1
-    print(f'Qtd carros →: {(cruzamento2.sensor_v1.get_quantidade_carros()/contador_segundos)*60}')
+    print(f'Qtd carros →: {(cruzamento1.sensor_v1.get_quantidade_carros()/contador_segundos)*60}')
