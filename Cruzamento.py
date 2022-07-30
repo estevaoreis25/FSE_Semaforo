@@ -14,6 +14,7 @@ class Cruzamento:
                     sensor_v2_a, sensor_v2_b):
     
     self.contador_segundos = 0
+    self.tempo_estado = 0
     self.estado = 0
 
     self.smf_principal = Semaforo(n_semaforo=1, vermelho=verm1, amarelo=amar1, verde=verd1)
