@@ -6,6 +6,7 @@ from threading import Thread
 
 if __name__ == "__main__":
 
+  is_executando = True
   cruzamento1 = Cruzamento(
                     verm1=12, 
                     amar1=16, 
@@ -38,18 +39,22 @@ if __name__ == "__main__":
                   sensor_v2_a = 13, 
                   sensor_v2_b = 19)
 
+
   def executa_cruzamento1():
-    while(True):
+    while(is_executando):
       cruzamento1.controla_semaforos()
   
   def executa_cruzamento2():
-    while(True):
+    while(is_executando):
       cruzamento2.controla_semaforos()
 
   def finaliza_programa(sig, frama):
     print("Até mais ...")
+    is_executando = False
     cruzamento1.smf_principal.desliga_semaforo()
     cruzamento1.smf_auxiliar.desliga_semaforo()
+    cruzamento2.smf_principal.desliga_semaforo()
+    cruzamento2.smf_auxiliar.desliga_semaforo()
     sleep(2)
     sys.exit(0)
 
