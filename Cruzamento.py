@@ -64,7 +64,7 @@ class Cruzamento:
         self.verifica_carro_esperando_principal()
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
-        os.system('omxplayer example.mp3')
+        os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 3
     elif(self.estado == 3):
         # As duas vias fechadas
@@ -73,7 +73,7 @@ class Cruzamento:
         self.verifica_carro_esperando_principal()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
-        os.system('omxplayer example.mp3')
+        os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada

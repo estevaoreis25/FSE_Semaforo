@@ -2,6 +2,7 @@ from time import sleep
 from Cruzamento import Cruzamento
 import signal
 import sys
+from threading import Thread
 
 if __name__ == "__main__":
 
@@ -36,7 +37,15 @@ if __name__ == "__main__":
                   sensor_v1_b = 22,
                   sensor_v2_a = 13, 
                   sensor_v2_b = 19)
+
+  def executa_cruzamento1():
+    while(True):
+      cruzamento1.controla_semaforos()
   
+  def executa_cruzamento2():
+    while(True):
+      cruzamento2.controla_semaforos()
+
   def finaliza_programa(sig, frama):
     print("Até mais ...")
     cruzamento1.smf_principal.desliga_semaforo()
@@ -44,12 +53,14 @@ if __name__ == "__main__":
     sleep(2)
     sys.exit(0)
 
+  tcruz1 = Thread(target=executa_cruzamento1)
+  tcruz2 = Thread(target=executa_cruzamento2)
 
   signal.signal(signal.SIGINT, finaliza_programa)
   signal.signal(signal.SIGTERM, finaliza_programa)
-  contador_segundos = 0
 
-  while(True):
-    cruzamento1.controla_semaforos()
-    #cruzamento2.controla_semaforos()
-    
+  tcruz1.start()
+  tcruz2.start()
+
+  tcruz1.join()
+  tcruz2.join()
