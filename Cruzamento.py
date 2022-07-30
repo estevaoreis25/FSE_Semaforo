@@ -37,7 +37,7 @@ class Cruzamento:
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 1
-        self.ultrapassagens += self.sensor_v1.get_quantidade_carros() + self.sensor_v2.get_quantidade_carros()
+        #self.ultrapassagens += self.sensor_v1.get_quantidade_carros() + self.sensor_v2.get_quantidade_carros()
     elif(self.estado == 1):
       # Via auxiliar fechada e via princial aberta
         self.is_botao_pedestre = False
@@ -90,6 +90,8 @@ class Cruzamento:
     print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
     print(f'TEMPO(s): {self.tempo_estado}')
     print(f'ESTADO: {self.estado}')
+    print("---------------------------------------------------")
+    print("Quantidade de carros por minuto")
 
 
   def ativa_noturno(self):

@@ -47,9 +47,11 @@ if __name__ == "__main__":
 
   signal.signal(signal.SIGINT, finaliza_programa)
   signal.signal(signal.SIGTERM, finaliza_programa)
+  contador_segundos = 0
 
   while(True):
     #cruzamento1.controla_semaforos()
     cruzamento2.controla_semaforos()
     sleep(1)
-  
+    contador_segundos+=1
+    print(f'Qtd carros →: {(cruzamento2.sensor_v1.get_quantidade_carros()/contador_segundos)*60}')
