@@ -8,6 +8,7 @@ if __name__ == "__main__":
 
   is_executando = True
   cruzamento1 = Cruzamento(
+                    id = 1,
                     verm1=12, 
                     amar1=16, 
                     verd1=20, 
@@ -24,6 +25,7 @@ if __name__ == "__main__":
                     sensor_v2_b = 25)
 
   cruzamento2 = Cruzamento(
+                  id = 2,
                   verm1=6, 
                   amar1=5, 
                   verd1=0,

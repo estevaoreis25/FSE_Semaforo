@@ -6,13 +6,14 @@ from time import sleep
 import os
 
 class Cruzamento:
-  def __init__(self, verm1, amar1, verd1, 
+  def __init__(self, id, verm1, amar1, verd1, 
                     verm2, amar2, verd2, 
                     botao1, botao2, 
                     sensor_pass1, sensor_pass2, 
                     sensor_v1_a, sensor_v1_b,
                     sensor_v2_a, sensor_v2_b):
-    
+
+    self.id = id
     self.contador_segundos = 0
     self.tempo_estado = 0
     self.estado = 0
@@ -95,6 +96,7 @@ class Cruzamento:
         # Via auxiliar em atenção
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
+        self.verifica_carro_esperando_principal()
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
         self.estado = 0
@@ -109,18 +111,21 @@ class Cruzamento:
     
     sleep(1)
     self.contador_segundos+=1
-    
+
+    print('')
+    print(f'-------------------CRUZAMENTO {self.id}--------------------')
     print(f'Pedestre quer passar? {self.is_botao_pedestre}')
-    print(f'Tem carro esperando? {self.is_carro_esperando_aux}')
+    print(f'Carro na auxiliar esperando? {self.is_carro_esperando_aux}')
     print(f'Carro na principal esperando? {self.is_carro_esperando_principal}')
-    print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
+    #print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
     print(f'TEMPO(s): {self.tempo_estado}')
     print(f'ESTADO: {self.estado}')
     print("---------------------------------------------------")
-    print(f'Qtd carros por minuto →: {round((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60, 0)}')
-    print(f'Qtd carros por minuto ←: {round((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60, 0)}')
-    print(f'Qtd carros por minuto ↑: {round((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60, 0)}')
-    print(f'Qtd carros por minuto ↓: {round((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60, 0)}')
+    print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ↑: {int((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
+    print('')
 
 
   def ativa_noturno(self):
@@ -137,24 +142,28 @@ class Cruzamento:
       self.is_botao_pedestre = True
     else:
       self.is_botao_pedestre = False
-
-  def verifica_carro_esperando_via_auxliar(self):
-    if((self.estado != 4 or self.estado != 5) and (self.sensor_aux1.get_carro_esperando or self.sensor_aux2.get_carro_esperando)):
-      self.is_carro_esperando_aux = True
-    else:
-      self.is_carro_esperando_aux = False
-
+      
   def verifica_pedestre_esperando(self):
-    if(self.estado != 1 and (self.botao_pedestre1.get_pedestre_esperando or self.botao_pedestre2.get_pedestre_esperando)):
+    if(self.estado != 1 and (self.botao_pedestre1.get_pedestre_esperando() or self.botao_pedestre2.get_pedestre_esperando())):
       self.is_botao_pedestre = True
     else:
       self.botao_pedestre1.set_pedestre_passando()
       self.botao_pedestre2.set_pedestre_passando()
       self.is_botao_pedestre = False
 
+  def verifica_carro_esperando_via_auxliar(self):
+    if(self.estado != 4 and (self.sensor_aux1.get_carro_esperando() or self.sensor_aux2.get_carro_esperando())):
+      self.is_carro_esperando_aux = True
+    else:
+      self.is_carro_esperando_aux = False
+      self.sensor_aux1.set_carro_passando()
+      self.sensor_aux2.set_carro_passando()
+
+
   def verifica_carro_esperando_principal(self):
-    if((self.estado != 1 or self.estado != 2) and (self.sensor_v1.get_carro_parado or self.sensor_v2.get_carro_parado)):
+    if(self.estado != 1 and (self.sensor_v1.get_carro_parado() or self.sensor_v2.get_carro_parado())):
       self.is_carro_esperando_principal = True
     else:
+      self.sensor_v1.set_carro_passando()
+      self.sensor_v1.set_carro_passando()
       self.is_carro_esperando_principal = False
-    

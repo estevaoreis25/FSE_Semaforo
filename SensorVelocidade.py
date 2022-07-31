@@ -8,6 +8,7 @@ class SensorVelocidade:
       self.sensor_v_a = Button(sensor_v_a)
       self.sensor_v_b = Button(sensor_v_b)
       self.sensor_v_a.when_pressed = self.calcula_velocidade
+      self.sensor_v_a.when_released = self.set_carro_passando
       self.sensor_v_b.when_pressed = self.registra_ti
       self.quantidade_carros = 0
       self.velocidade_media = 0
@@ -21,18 +22,14 @@ class SensorVelocidade:
   def registra_ti(self):
     self.ti = time.time()
 
-  """ def verifica_situacao(self):
-    if(select.sensen) """
-  
-
   def calcula_velocidade(self):
     self.quantidade_carros+=1
     self.tf = time.time()
     self.verifica_carro_parado.start()
     # delta s/ deslta t
-    self.velocidade_media = round((1.0/(self.tf - self.ti)) * 3.6, 2)
+    self.velocidade_media = int((1.0/(self.tf - self.ti)) * 3.6)
     self.velocidades.append(self.velocidade_media)
-    self.velocidade_via = round(sum(self.velocidades)/len(self.velocidades), 2)
+    self.velocidade_via = int(sum(self.velocidades)/len(self.velocidades))
     print(f'Velocidade media: {self.velocidade_media}km')
     print(f'Velocidade media da via: {self.velocidade_via}km')
 
@@ -51,3 +48,6 @@ class SensorVelocidade:
 
   def get_carro_parado(self):
     return self.carro_parado
+
+  def set_carro_passando(self):
+    self.carro_parado = False
