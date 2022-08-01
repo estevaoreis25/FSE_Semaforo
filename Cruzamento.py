@@ -84,7 +84,7 @@ class Cruzamento:
         self.sensor_aux2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
-        os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
+        os.system('cvlc example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada
@@ -131,7 +131,7 @@ class Cruzamento:
 
     print('')
     print(f'-------------------CRUZAMENTO {self.id}--------------------')
-    print(f'Pedestre quer passar? {self.is_botao_pedestre}')
+    """print(f'Pedestre quer passar? {self.is_botao_pedestre}')
     print(f'Carro na auxiliar esperando? {self.is_carro_esperando_aux}')
     print(f'Carro na principal esperando? {self.is_carro_esperando_principal}')
     #print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
@@ -141,7 +141,7 @@ class Cruzamento:
     print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
     print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
     print(f'Qtd carros por minuto ↑: {int((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60)}')
-    print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')"""
     print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
     print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
     print('')
