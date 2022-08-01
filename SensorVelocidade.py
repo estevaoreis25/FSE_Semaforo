@@ -1,15 +1,15 @@
-from gpiozero import Button
+from gpiozero import DigitalInputDevice
 import time
 from threading import Thread
 
 from soupsieve import select
 class SensorVelocidade:
   def __init__(self, sensor_v_a, sensor_v_b):
-      self.sensor_v_a = Button(sensor_v_a, pull_up=True)
-      self.sensor_v_b = Button(sensor_v_b, pull_up=True)
-      self.sensor_v_a.when_pressed = self.calcula_velocidade
-      self.sensor_v_a.when_released = self.set_carro_passando
-      self.sensor_v_b.when_pressed = self.registra_ti
+      self.sensor_v_a = DigitalInputDevice(sensor_v_a, pull_up=True)
+      self.sensor_v_b = DigitalInputDevice(sensor_v_b, pull_up=True)
+      self.sensor_v_a.when_activated = self.calcula_velocidade
+      self.sensor_v_a.when_deactivated = self.set_carro_passando
+      self.sensor_v_b.when_activated = self.registra_ti
       self.quantidade_carros = 0
       self.velocidade_media = 0
       self.velocidades = []
@@ -24,10 +24,12 @@ class SensorVelocidade:
       self.velocidade_maxima = 60
 
   def registra_ti(self):
+    print("VALOR INICIAL")
     self.ti = time.time()
 
   
   def calcula_velocidade(self):
+    print("CALCULANDO VELOCIDADE")
     self.quantidade_carros+=1
     self.qtd_carros_sinal_vermelho+=1
     self.tf = time.time()
