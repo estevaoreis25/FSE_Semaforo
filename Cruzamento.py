@@ -136,7 +136,6 @@ class Cruzamento:
     print(f'Carro na principal esperando? {self.is_carro_esperando_principal}')
     #print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
     print(f'TEMPO(s): {self.tempo_estado}')
-    print(f'ESTADO: {self.estado}')
     print("---------------------------------------------------")
     print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
     print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
@@ -144,6 +143,7 @@ class Cruzamento:
     print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')"""
     print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
     print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
+    print(f'ESTADO: {self.estado}')
     print('')
 
 
