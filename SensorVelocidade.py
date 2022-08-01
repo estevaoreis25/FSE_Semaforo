@@ -31,7 +31,7 @@ class SensorVelocidade:
     self.quantidade_carros+=1
     self.qtd_carros_sinal_vermelho+=1
     self.tf = time.time()
-    self.verifica_carro_parado.start()
+    #self.verifica_carro_parado.start()
     # delta s/ deslta t
     self.velocidade_media = int((1.0/(self.tf - self.ti)) * 3.6)
     self.velocidades.append(self.velocidade_media)
