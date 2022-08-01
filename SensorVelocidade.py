@@ -29,7 +29,6 @@ class SensorVelocidade:
 
   
   def calcula_velocidade(self):
-    print("CALCULANDO VELOCIDADE")
     self.quantidade_carros+=1
     self.qtd_carros_sinal_vermelho+=1
     self.tf = time.time()
