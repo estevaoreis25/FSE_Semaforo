@@ -4,9 +4,9 @@ import signal
 import sys
 from threading import Thread
 
+
 if __name__ == "__main__":
 
-  is_executando = True
   cruzamento1 = Cruzamento(
                     id = 1,
                     verm1=12, 
@@ -43,25 +43,26 @@ if __name__ == "__main__":
 
 
   def executa_cruzamento1():
-    while(is_executando):
+    while True:
       cruzamento1.controla_semaforos()
   
   def executa_cruzamento2():
-    while(is_executando):
+    while True:
       cruzamento2.controla_semaforos()
 
   def finaliza_programa(sig, frama):
-    print("Até mais ...")
-    is_executando = False
     cruzamento1.smf_principal.desliga_semaforo()
     cruzamento1.smf_auxiliar.desliga_semaforo()
     cruzamento2.smf_principal.desliga_semaforo()
     cruzamento2.smf_auxiliar.desliga_semaforo()
+    print("Até mais ...")
     sleep(2)
     sys.exit(0)
 
   tcruz1 = Thread(target=executa_cruzamento1)
   tcruz2 = Thread(target=executa_cruzamento2)
+  tcruz1.daemon = True
+  tcruz2.daemon = True
 
   signal.signal(signal.SIGINT, finaliza_programa)
   signal.signal(signal.SIGTERM, finaliza_programa)
