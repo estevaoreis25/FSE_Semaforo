@@ -33,7 +33,7 @@ class Cruzamento:
     self.sensor_v1 = SensorVelocidade(sensor_v1_a, sensor_v1_b)
     self.sensor_v2 = SensorVelocidade(sensor_v2_a, sensor_v2_b)
 
-    self.ultrapassagens = 0
+    self.infracoes_sinal_vermelho = 0
 
   def controla_semaforos(self):
     if(self.estado == 0):
@@ -49,6 +49,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_v1.reinicia_contagem_carros()
+        self.sensor_v2.reinicia_contagem_carros()
         if(self.tempo_estado >= 10 and self.is_carro_esperando_aux == True):
           self.estado = 2
           self.tempo_estado = 0
@@ -64,6 +66,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_v1.reinicia_contagem_carros()
+        self.sensor_v2.reinicia_contagem_carros()
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
         os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
@@ -82,6 +86,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_aux1.reinicia_contagem_carros()
+        self.sensor_aux2.reinicia_contagem_carros()
         if(self.tempo_estado >= 5 and (self.is_botao_pedestre or self.is_carro_esperando_principal)):
           self.estado = 5
           self.tempo_estado = 0
@@ -97,6 +103,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_aux1.reinicia_contagem_carros()
+        self.sensor_aux2.reinicia_contagem_carros()
         self.smf_principal.pare()
         self.smf_auxiliar.atencao()
         self.estado = 0
@@ -112,6 +120,8 @@ class Cruzamento:
     sleep(1)
     self.contador_segundos+=1
 
+    self.infracoes_sinal_vermelho = self.sensor_v1.get_infracoes_sinal_vermelho() + self.sensor_v2.get_infracoes_sinal_vermelho() + self.sensor_aux1.get_infracoes_sinal_vermelho() + self.sensor_aux2.get_infracoes_sinal_vermelho()
+
     print('')
     print(f'-------------------CRUZAMENTO {self.id}--------------------')
     print(f'Pedestre quer passar? {self.is_botao_pedestre}')
@@ -125,6 +135,8 @@ class Cruzamento:
     print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
     print(f'Qtd carros por minuto ↑: {int((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60)}')
     print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
+    
     print('')
 
 
@@ -167,3 +179,4 @@ class Cruzamento:
       self.sensor_v1.set_carro_passando()
       self.sensor_v1.set_carro_passando()
       self.is_carro_esperando_principal = False
+      

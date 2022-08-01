@@ -36,7 +36,7 @@ class Semaforo:
     self.amarelho.off()
 
   def desliga_semaforo(self):
-    self.vermelho.off()
-    self.amarelho.off()
-    self.verde.off()
+    self.vermelho.close()
+    self.amarelho.close()
+    self.verde.close()
     
