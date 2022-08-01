@@ -42,6 +42,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_v1.set_infracoes_sinal_vermelho()
+        self.sensor_v2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         self.estado = 1
@@ -78,6 +80,8 @@ class Cruzamento:
         self.verifica_pedestre_esperando()
         self.verifica_carro_esperando_via_auxliar()
         self.verifica_carro_esperando_principal()
+        self.sensor_aux1.set_infracoes_sinal_vermelho()
+        self.sensor_aux2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
         os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
@@ -140,7 +144,6 @@ class Cruzamento:
     print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
     print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
     print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
-    
     print('')
 
 
@@ -182,6 +185,4 @@ class Cruzamento:
     else:
       self.sensor_v1.set_carro_passando()
       self.sensor_v1.set_carro_passando()
-      self.is_carro_esperando_principal = False
-      
-    
+      self.is_carro_esperando_principal = False   

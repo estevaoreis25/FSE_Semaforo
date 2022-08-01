@@ -30,5 +30,7 @@ class SensorEsperaAuxiliar:
     self.qtd_carros_sinal_vermelho = 0
 
   def get_infracoes_sinal_vermelho(self):
-    self.infracao_sinal_vermeho += self.qtd_carros_sinal_vermelho
     return self.infracao_sinal_vermeho
+
+  def set_infracoes_sinal_vermelho(self):
+    self.infracao_sinal_vermeho += self.qtd_carros_sinal_vermelho
