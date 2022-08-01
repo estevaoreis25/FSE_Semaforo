@@ -67,3 +67,6 @@ class SensorVelocidade:
   def get_infracoes_sinal_vermelho(self):
     self.infracao_sinal_vermeho += self.qtd_carros_sinal_vermelho
     return self.infracao_sinal_vermeho
+
+  def get_excesso_velocidade(self):
+    return self.infracao_limite_velocidade
