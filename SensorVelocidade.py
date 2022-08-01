@@ -5,8 +5,8 @@ from threading import Thread
 from soupsieve import select
 class SensorVelocidade:
   def __init__(self, sensor_v_a, sensor_v_b):
-      self.sensor_v_a = Button(sensor_v_a)
-      self.sensor_v_b = Button(sensor_v_b)
+      self.sensor_v_a = Button(sensor_v_a, pull_up=True)
+      self.sensor_v_b = Button(sensor_v_b, pull_up=True)
       self.sensor_v_a.when_pressed = self.calcula_velocidade
       self.sensor_v_a.when_released = self.set_carro_passando
       self.sensor_v_b.when_pressed = self.registra_ti
@@ -51,7 +51,7 @@ class SensorVelocidade:
     self.qtd_carros_sinal_vermelho = 0
 
   def is_carro_parado(self):
-    time.sleep(2)
+    time.sleep(1)
     if self.sensor_v_a.is_pressed:
       self.carro_parado = True
     else:

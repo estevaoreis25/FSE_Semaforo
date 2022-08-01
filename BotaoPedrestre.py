@@ -2,7 +2,7 @@ from gpiozero import Button
 
 class BotaoPedesrtre:
   def __init__(self, botao_pedestre):
-    self.botao_pedestre = Button(botao_pedestre)
+    self.botao_pedestre = Button(botao_pedestre, pull_up=False)
     self.botao_pedestre.when_pressed = self.set_pedestre_esperando
     self.pedestre_esperando = False
 

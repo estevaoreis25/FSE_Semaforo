@@ -2,7 +2,7 @@ from gpiozero import Button
 
 class SensorEsperaAuxiliar:
   def __init__(self, sensor_espera):
-    self.sensor_espera = Button(sensor_espera)
+    self.sensor_espera = Button(sensor_espera, pull_up=True)
     self.sensor_espera.when_pressed = self.set_carro_esperando
     self.sensor_espera.when_released = self.conta_infracao
     self.carro_esperando = False

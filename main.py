@@ -38,10 +38,10 @@ if __name__ == "__main__":
                   botao2=9,
                   sensor_pass1 = 4, 
                   sensor_pass2 = 17, 
-                  sensor_v1_a = 27, 
-                  sensor_v1_b = 22,
-                  sensor_v2_a = 13, 
-                  sensor_v2_b = 19)
+                  sensor_v1_b = 27, 
+                  sensor_v1_a = 22,
+                  sensor_v2_b = 13, 
+                  sensor_v2_a = 19)
 
 
   def executa_cruzamento1():
