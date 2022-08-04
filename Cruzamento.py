@@ -73,7 +73,6 @@ class Cruzamento:
         self.sensor_v2.reinicia_contagem_carros()
         self.smf_principal.atencao()
         self.smf_auxiliar.pare()
-        #os.system('omxplayer example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 3
     elif(self.estado == 3):
         # As duas vias fechadas
@@ -84,7 +83,7 @@ class Cruzamento:
         self.sensor_aux2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
-        #os.system('cvlc example.mp3') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
+        os.system('cvlc -I dummy example.mp3 vlc://quit') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada
