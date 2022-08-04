@@ -3,6 +3,7 @@ from Cruzamento import Cruzamento
 import signal
 import sys
 from threading import Thread, Event
+import os
 
 exit_execution = Event()
 
@@ -59,6 +60,33 @@ if __name__ == "__main__":
         cruzamento2.smf_auxiliar.desliga_semaforo()
         break
       cruzamento2.controla_semaforos()
+  
+  def modifica_modo():
+    while True:
+      if exit_execution.is_set():
+          break
+      else:
+          modo = input('')
+          if(modo == 'N'):
+            cruzamento1.ativa_noturno()
+            cruzamento2.ativa_noturno()
+          elif(modo == 'E'):
+            cruzamento1.ativa_emergencia()
+            cruzamento2.ativa_emergencia()
+          elif(modo =='X'):
+            cruzamento1.desativa_noturno_emergencia()
+            cruzamento2.desativa_noturno_emergencia()
+  
+  def mostra_info():
+    while True:
+      if exit_execution.is_set():
+        break
+      else:
+        sleep(2)
+        os.system('clear')
+        print('Digite N para o modo NOTURNO, E para o o modo EMERGENCIA" e X para desativa-los')
+        cruzamento1.mostra_informacoes()
+        cruzamento2.mostra_informacoes()
 
   def finaliza_programa(sig, frama):
     exit_execution.is_set()
@@ -68,13 +96,23 @@ if __name__ == "__main__":
 
   tcruz1 = Thread(target=executa_cruzamento1)
   tcruz2 = Thread(target=executa_cruzamento2)
+  modos = Thread(target=modifica_modo)
+  informacoes = Thread(target=mostra_info)
+
   tcruz1.daemon = True
   tcruz2.daemon = True
+  modos.daemon = True
+  informacoes.daemon = True
 
   signal.signal(signal.SIGINT, finaliza_programa)
   signal.signal(signal.SIGTERM, finaliza_programa)
 
   tcruz1.start()
   tcruz2.start()
+  informacoes.start()
+  modos.start()
+
   tcruz1.join()
   tcruz2.join()
+  informacoes.join()
+  modos.join()

@@ -127,25 +127,7 @@ class Cruzamento:
 
     self.infracoes_sinal_vermelho = self.sensor_v1.get_infracoes_sinal_vermelho() + self.sensor_v2.get_infracoes_sinal_vermelho() + self.sensor_aux1.get_infracoes_sinal_vermelho() + self.sensor_aux2.get_infracoes_sinal_vermelho()
 
-    self.infracoes_excesso_velocidade = self.sensor_v1.get_excesso_velocidade()+self.sensor_v1.get_excesso_velocidade() 
-
-    print('')
-    print(f'-------------------CRUZAMENTO {self.id}--------------------')
-    print(f'Pedestre quer passar? {self.is_botao_pedestre}')
-    print(f'Carro na auxiliar esperando? {self.is_carro_esperando_aux}')
-    print(f'Carro na principal esperando? {self.is_carro_esperando_principal}')
-    #print(f'Qtd Ultrapassagens: {self.ultrapassagens}')
-    print(f'TEMPO(s): {self.tempo_estado}')
-    print("---------------------------------------------------")
-    print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
-    print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
-    print(f'Qtd carros por minuto ↑: {int((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60)}')
-    print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
-    print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
-    print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
-    print(f'ESTADO: {self.estado}')
-    print('')
-
+    self.infracoes_excesso_velocidade = self.sensor_v1.get_excesso_velocidade()+self.sensor_v1.get_excesso_velocidade()
 
   def ativa_noturno(self):
     self.estado = 6
@@ -154,7 +136,8 @@ class Cruzamento:
     self.estado = 7
 
   def desativa_noturno_emergencia(self):
-    self.estado = 0
+    if(self.estado == 6 or self.estado == 7):
+      self.estado = 0
   
   def modo_pedestre(self):
     if(self.estado != 1):
@@ -185,4 +168,22 @@ class Cruzamento:
     else:
       self.sensor_v1.set_carro_passando()
       self.sensor_v1.set_carro_passando()
-      self.is_carro_esperando_principal = False   
+      self.is_carro_esperando_principal = False 
+
+  def mostra_informacoes(self):
+    print('')
+    print(f'------------CRUZAMENTO {self.id}--------------')
+    print("--------FLUXO DE TRANSITO--------")
+    print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ←: {int((self.sensor_v2.get_quantidade_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ↑: {int((self.sensor_aux2.get_qtd_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto ↓: {int((self.sensor_aux1.get_qtd_carros()/self.contador_segundos)*60)}')
+    print(f'Qtd carros por minuto →: {int((self.sensor_v1.get_quantidade_carros()/self.contador_segundos)*60)}')
+    print('')
+    print("--------VELOCIDADE MEDIA DA VIA--------")
+    print(f'Velocidade média da via principal: {int(self.sensor_v1.velocidade_via+self.sensor_v2.velocidade_via/2)}')
+    print('')
+    print("------------INFRACOES-------------")
+    print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
+    print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
+    print('')
