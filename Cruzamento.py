@@ -86,7 +86,7 @@ class Cruzamento:
         self.sensor_aux2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
-        self.buzzer.start() # Avisa os pedestres que o sinal das vias auxiliares vão abrir
+        #self.buzzer.start() # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada
