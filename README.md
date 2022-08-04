@@ -10,6 +10,8 @@ na raiz do projeto execute o seguinte comando
  
 ## Sobre a aplicação
 O arquivo `main.py` é responsável por instanciar os dois cruzamentos da Raspberry conectando todos os pinos necessários com o software.
+
+Cada cruzamento será executada por uma thread 
  
 Quando o programa estiver em execução será possível visualizar na placa os leds funcionando adequadamente como o um semáforo.
  
