@@ -4,6 +4,7 @@ from SensorEsperaAuxiliar import SensorEsperaAuxiliar
 from BotaoPedrestre import BotaoPedesrtre
 from time import sleep
 import os
+from threading import Thread
 
 class Cruzamento:
   def __init__(self, id, verm1, amar1, verd1, 
@@ -35,6 +36,8 @@ class Cruzamento:
 
     self.infracoes_sinal_vermelho = 0
     self.infracoes_excesso_velocidade = 0
+
+    self.buzzer = Thread(target=self.executa_buzzer)
 
   def controla_semaforos(self):
     if(self.estado == 0):
@@ -83,7 +86,7 @@ class Cruzamento:
         self.sensor_aux2.set_infracoes_sinal_vermelho()
         self.smf_principal.pare()
         self.smf_auxiliar.pare()
-        os.system('cvlc -I dummy example.mp3 vlc://quit') # Avisa os pedestres que o sinal das vias auxiliares vão abrir
+        self.buzzer.start() # Avisa os pedestres que o sinal das vias auxiliares vão abrir
         self.estado = 4
     elif(self.estado == 4):
         # Via auxiliar aberta e via princial fechada
@@ -186,3 +189,6 @@ class Cruzamento:
     print(f'Qtd Infraceos sinal vermelho: {self.infracoes_sinal_vermelho}')
     print(f'Qtd Infraceos sinal excesso de velocidade: {self.infracoes_excesso_velocidade}')
     print('')
+
+  def executa_buzzer(self):
+    os.system('cvlc -I dummy example.mp3 vlc://quit')
